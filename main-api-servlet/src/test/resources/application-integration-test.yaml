@@ -1,0 +1,4 @@
+miller79:
+  client:
+    microservice-o-auth2-client-base-url: http://localhost
+    microservice-token-passthrough-base-url: http://localhost
