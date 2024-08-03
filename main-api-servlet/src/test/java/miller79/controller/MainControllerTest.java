@@ -28,7 +28,6 @@ import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.client.MockRestServiceServer;
-import org.springframework.test.web.client.RequestExpectationManager;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.client.RestTemplate;
@@ -89,7 +88,7 @@ class MainControllerTest {
 
     @AfterEach
     void cleanUpEach() {
-        customizer.getExpectationManagers().values().forEach(RequestExpectationManager::reset);
+        customizer.getServers().values().forEach(MockRestServiceServer::reset);
     }
 
     @Test
