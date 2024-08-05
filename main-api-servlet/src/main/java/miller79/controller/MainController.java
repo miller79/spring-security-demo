@@ -16,22 +16,22 @@ public class MainController {
     private final MainService mainService;
 
     @GetMapping("/rest-client-token-passthrough")
-    public String helloRestClient1() {
+    public String helloRestClientTokenPassthrough() {
         return mainService.microserviceCallWithTokenPassthroughRestClient();
     }
 
     @GetMapping("/rest-template-token-passthrough")
-    public String helloRestTemplate1() {
+    public String helloRestTemplateTokenPassthrough() {
         return mainService.microserviceCallWithTokenPassthroughRestTemplate();
     }
 
     @GetMapping("/rest-client-token-passthrough-no-auth")
-    public String helloRestClient1NoAuth() {
+    public String helloRestClientTokenPassthroughNoAuth() {
         return mainService.microserviceCallWithTokenPassthroughRestClient();
     }
 
     @GetMapping("/rest-client-oauth2-client-no-auth")
-    public String helloRestClient2NoAuth() {
+    public String helloRestClientOAuth2ClientNoAuth() {
         return mainService.microserviceCallWithOAuth2ClientRestClient();
     }
 
