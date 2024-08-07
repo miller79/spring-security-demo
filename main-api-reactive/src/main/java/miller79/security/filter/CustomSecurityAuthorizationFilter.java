@@ -28,9 +28,9 @@ public class CustomSecurityAuthorizationFilter implements WebFilter {
                                 .concat(jwt.getAuthorities().stream(),
                                         List.of(new SimpleGrantedAuthority("name:" + jwt.getName())).stream())
                                 .toList()))
+                .switchIfEmpty(chain.filter(exchange).then(Mono.empty()))
                 .flatMap(jwt -> chain
                         .filter(exchange)
-                        .contextWrite(ReactiveSecurityContextHolder.withAuthentication(jwt)))
-                .switchIfEmpty(chain.filter(exchange));
+                        .contextWrite(ReactiveSecurityContextHolder.withAuthentication(jwt)));
     }
 }
