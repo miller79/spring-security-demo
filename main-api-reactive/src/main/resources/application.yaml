@@ -1,0 +1,30 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: '@project.artifactId@'
+  security:
+    oauth2:
+      client:
+        provider:
+          keycloak:
+            issuer-uri: https://keycloak-issuer-uri
+        registration:
+          keycloak:
+            authorization-grant-type: client_credentials
+            client-id: my-client-id
+            client-secret: my-secret
+      resourceserver:
+        jwt:
+          issuer-uri: https://keycloak.issuer-uri
+  webflux:
+    problemdetails:
+      enabled: true
+
+miller79:
+  client:
+    microservice-token-passthrough-base-url: http://localhost:8081
+    microservice-o-auth2-client-base-url: http://localhost:8081
+  security:
+    resource-server:
+      client-id: my-client
