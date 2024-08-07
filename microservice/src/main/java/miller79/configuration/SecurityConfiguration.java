@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class SecurityConfiguration {
     @Bean
-    SecurityWebFilterChain filterChain(ServerHttpSecurity http) throws Exception {
+    SecurityWebFilterChain filterChain(ServerHttpSecurity http) {
         http
                 .authorizeExchange(
                         exchanges -> exchanges.pathMatchers("/actuator/**").permitAll().anyExchange().authenticated())

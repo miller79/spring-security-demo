@@ -82,7 +82,7 @@ class MainControllerTest {
     }
 
     @BeforeEach
-    void init() throws Exception {
+    void init() {
         doReturn("myInternalToken").when(oauth2ClientHttpRequestInterceptor).getToken();
     }
 
