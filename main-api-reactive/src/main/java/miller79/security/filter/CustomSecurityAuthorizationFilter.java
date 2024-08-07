@@ -31,6 +31,6 @@ public class CustomSecurityAuthorizationFilter implements WebFilter {
                 .flatMap(jwt -> chain
                         .filter(exchange)
                         .contextWrite(ReactiveSecurityContextHolder.withAuthentication(jwt)))
-                .switchIfEmpty(Mono.defer(() -> chain.filter(exchange)));
+                .switchIfEmpty(chain.filter(exchange));
     }
 }
