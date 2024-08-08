@@ -11,6 +11,19 @@ import miller79.interceptor.TokenPassthroughInterceptor;
 import miller79.properties.Miller79ClientServerConfigurationProperties;
 import miller79.util.RestClientUtil;
 
+/**
+ * @see <a href=
+ *      "https://docs.spring.io/spring-framework/reference/integration/rest-clients.html#rest-restclient">Rest
+ *      Client</a>
+ * @see <a href=
+ *      "https://docs.spring.io/spring-boot/reference/io/rest-client.html#io.rest-client.restclient.customization">RestClient
+ *      Customization</a>
+ * @see <a href=
+ *      "https://docs.spring.io/spring-framework/reference/core/beans/java/configuration-annotation.html">Using
+ *      the @Configuration annotation</a>
+ * @see <a href="https://projectlombok.org/features/constructor">Lombok
+ *      Constructor</a>
+ */
 @RequiredArgsConstructor
 @Configuration
 public class RestClientConfiguration {

@@ -10,6 +10,9 @@ import org.springframework.stereotype.Component;
 
 import miller79.model.SemiSecretObject;
 
+/**
+ * @see <a href="https://docs.spring.io/spring-security/reference/servlet/authorization/method-security.html#_using_the_denied_result_from_the_method_invocation">Using the Denied Result From the Method Invocation</a>
+ */
 @Component
 public class MaskMethodAuthorizationDeniedHandler implements MethodAuthorizationDeniedHandler {
     @Override

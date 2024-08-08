@@ -9,6 +9,12 @@ import lombok.RequiredArgsConstructor;
 import miller79.model.SemiSecretObject;
 import miller79.service.MainService;
 
+/**
+ * @see <a href=
+ *      "https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-controller.html">Annotated
+ *      Controllers</a>
+ * @see <a href="https://docs.spring.io/spring-security/reference/servlet/authorization/method-security.html#use-secured">Method Security</a>
+ */
 @RequiredArgsConstructor
 @RestController
 public class MainController {

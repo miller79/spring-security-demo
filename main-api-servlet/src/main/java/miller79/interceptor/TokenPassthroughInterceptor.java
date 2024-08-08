@@ -11,6 +11,11 @@ import org.springframework.stereotype.Component;
 
 import miller79.util.AuthTokenUtil;
 
+/**
+ * @see <a href=
+ *      "https://docs.spring.io/spring-framework/reference/integration/rest-clients.html#_creating_a_restclient">Rest
+ *      Client</a>
+ */
 @Component
 public class TokenPassthroughInterceptor implements ClientHttpRequestInterceptor {
     @Override

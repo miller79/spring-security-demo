@@ -18,6 +18,11 @@ import org.springframework.stereotype.Component;
 import lombok.RequiredArgsConstructor;
 import miller79.properties.Miller79SecurityResourceServerConfigurationProperties;
 
+/**
+ * @see <a href=
+ *      "https://docs.spring.io/spring-security/reference/servlet/oauth2/resource-server/jwt.html">OAuth
+ *      2.0 Resource Server JWT</a>
+ */
 @Component
 @RequiredArgsConstructor
 public class KeycloakJwtAuthenticationConverter implements Converter<Jwt, AbstractAuthenticationToken> {

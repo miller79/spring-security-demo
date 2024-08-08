@@ -17,6 +17,22 @@ import lombok.RequiredArgsConstructor;
 import miller79.converter.KeycloakJwtAuthenticationConverter;
 import miller79.security.filter.CustomSecurityAuthorizationFilter;
 
+/**
+ * @see <a href=
+ *      "https://docs.spring.io/spring-security/reference/servlet/oauth2/client/index.html">OAuth
+ *      2.0 Client</a>
+ * @see <a href=
+ *      "https://docs.spring.io/spring-security/reference/servlet/oauth2/resource-server/jwt.html">OAuth
+ *      2.0 Resource Server JWT</a>
+ * @see <a href=
+ *      "https://docs.spring.io/spring-security/reference/servlet/authorization/method-security.html#meta-annotations">Method
+ *      Security </a>
+ * @see <a href=
+ *      "https://docs.spring.io/spring-framework/reference/core/beans/java/configuration-annotation.html">Using
+ *      the @Configuration annotation</a>
+ * @see <a href="https://projectlombok.org/features/constructor">Lombok
+ *      Constructor</a>
+ */
 @Configuration
 @RequiredArgsConstructor
 @EnableMethodSecurity

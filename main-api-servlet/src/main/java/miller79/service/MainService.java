@@ -7,6 +7,11 @@ import org.springframework.web.client.RestClientResponseException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ResponseStatusException;
 
+/**
+ * @see <a href=
+ *      "https://docs.spring.io/spring-framework/reference/integration/rest-clients.html">REST
+ *      Clients</a>
+ */
 @Service
 public class MainService {
     private final RestClient microserviceTokenPassthroughRestClient;

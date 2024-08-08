@@ -17,6 +17,14 @@ import com.nimbusds.oauth2.sdk.util.StringUtils;
 
 import lombok.RequiredArgsConstructor;
 
+/**
+ * @see <a href=
+ *      "https://docs.spring.io/spring-framework/reference/integration/rest-clients.html#_creating_a_restclient">Rest
+ *      Client</a>
+ * @see <a href=
+ *      "https://docs.spring.io/spring-security/reference/servlet/oauth2/client/authorized-clients.html">Authorized
+ *      Client Features</a>
+ */
 @Component
 @RequiredArgsConstructor
 public class OAuth2ClientHttpRequestInterceptor implements ClientHttpRequestInterceptor {

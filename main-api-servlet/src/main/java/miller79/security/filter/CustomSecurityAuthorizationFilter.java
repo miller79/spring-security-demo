@@ -19,6 +19,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 
+/**
+ * @see <a href=
+ *      "https://docs.spring.io/spring-security/reference/servlet/architecture.html#adding-custom-filter">Adding
+ *      a Custom Filter to the Filter Chain</a>
+ */
 @Component
 @RequiredArgsConstructor
 public class CustomSecurityAuthorizationFilter extends OncePerRequestFilter {

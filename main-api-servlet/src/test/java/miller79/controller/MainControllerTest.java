@@ -36,6 +36,14 @@ import miller79.interceptor.OAuth2ClientHttpRequestInterceptor;
 import miller79.security.WithMockCustomUser;
 import miller79.security.WithMockCustomUserSecurityContextFactory;
 
+/**
+ * @see <a href=
+ *      "https://docs.spring.io/spring-boot/reference/testing/spring-boot-applications.html">Testing
+ *      Spring Boot Applications</a>
+ * @see <a href=
+ *      "https://docs.spring.io/spring-security/reference/servlet/test/method.html#test-method-withuserdetails">Testing
+ *      Method Security</a>
+ */
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("integration-test")
