@@ -1,0 +1,16 @@
+@startuml C4_Elements
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+Person(client, "Client")
+
+Container(mainApiServlet, "Main API Servlet", "Spring Boot, Web", "The main API created using Servlet\n\nhttp://localhost:8080")
+Container(mainApiReactive, "Main API Reactive", "Spring Boot, Webflux", "The main API created using Reactive\n\nhttp://localhost:8080")
+Container(microservice, "Microservice", "Spring Boot, Webflux", "A microservice created using Spring Boot Reactive that is secured with OAuth 2.0\n\nhttp://localhost:8081")
+
+Rel(client, mainApiServlet, "Calls")
+Rel(client, mainApiReactive, "Calls")
+Rel(mainApiServlet, microservice, "Calls")
+Rel(mainApiReactive, microservice, "Calls")
+
+SHOW_LEGEND()
+@enduml

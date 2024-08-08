@@ -6,6 +6,11 @@ import org.springframework.security.oauth2.client.ReactiveOAuth2AuthorizedClient
 import org.springframework.security.oauth2.client.web.reactive.function.client.ServerOAuth2AuthorizedClientExchangeFilterFunction;
 import org.springframework.security.oauth2.server.resource.web.reactive.function.client.ServerBearerExchangeFilterFunction;
 
+/**
+ * @see <a href=
+ *      "https://docs.spring.io/spring-framework/reference/core/beans/java/configuration-annotation.html">Using
+ *      the @Configuration annotation</a>
+ */
 @Configuration
 public class FilterConfiguration {
     @Bean

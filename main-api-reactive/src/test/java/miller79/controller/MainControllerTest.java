@@ -28,6 +28,14 @@ import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
 
+/**
+ * @see <a href=
+ *      "https://docs.spring.io/spring-boot/reference/testing/spring-boot-applications.html">Testing
+ *      Spring Boot Applications</a>
+ * @see <a href=
+ *      "https://docs.spring.io/spring-security/reference/reactive/test/method.html">Testing
+ *      Method Security</a>
+ */
 @SpringBootTest
 @AutoConfigureWebTestClient
 class MainControllerTest {

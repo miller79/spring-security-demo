@@ -9,6 +9,15 @@ import org.springframework.web.reactive.function.client.WebClient;
 import lombok.RequiredArgsConstructor;
 import miller79.properties.Miller79ClientServerConfigurationProperties;
 
+/**
+ * @see <a href=
+ *      "https://docs.spring.io/spring-framework/reference/core/beans/java/configuration-annotation.html">Using
+ *      the @Configuration annotation</a>
+ * @see <a href="https://projectlombok.org/features/constructor">Lombok
+ *      Constructor</a>
+ * @see <a href=
+ *      "https://docs.spring.io/spring-framework/reference/web/webflux-webclient.html">WebClient</a>
+ */
 @RequiredArgsConstructor
 @Configuration
 public class WebClientConfiguration {

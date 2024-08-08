@@ -15,6 +15,16 @@ import org.springframework.security.web.server.SecurityWebFilterChain;
 import lombok.RequiredArgsConstructor;
 import miller79.converter.KeycloakJwtAuthenticationConverter;
 
+/**
+ * @see <a href=
+ *      "https://docs.spring.io/spring-framework/reference/core/beans/java/configuration-annotation.html">Using
+ *      the @Configuration annotation</a>
+ * @see <a href="https://projectlombok.org/features/constructor">Lombok
+ *      Constructor</a>
+ * @see <a href=
+ *      "https://docs.spring.io/spring-security/reference/reactive/authorization/method.html#jc-enable-reactive-method-security-authorization-manager">EnableReactiveMethodSecurity
+ *      with Authorization Manager</a>
+ */
 @Configuration
 @RequiredArgsConstructor
 @EnableReactiveMethodSecurity

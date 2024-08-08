@@ -8,6 +8,14 @@ import lombok.RequiredArgsConstructor;
 import miller79.service.MainService;
 import reactor.core.publisher.Mono;
 
+/**
+ * @see <a href=
+ *      "https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-controller.html">Annotated
+ *      Controllers</a>
+ * @see <a href=
+ *      "https://docs.spring.io/spring-security/reference/reactive/authorization/method.html#page-title">Method
+ *      Security</a>
+ */
 @RequiredArgsConstructor
 @RestController
 public class MainController {

@@ -8,6 +8,11 @@ import org.springframework.web.server.ResponseStatusException;
 import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Mono;
 
+/**
+ * @see <a href=
+ *      "https://docs.spring.io/spring-framework/reference/integration/rest-clients.html">REST
+ *      Clients</a>
+ */
 @RequiredArgsConstructor
 @Service
 public class MainService {
