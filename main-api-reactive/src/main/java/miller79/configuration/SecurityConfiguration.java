@@ -3,6 +3,7 @@ package miller79.configuration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableReactiveMethodSecurity;
+import org.springframework.security.config.web.server.SecurityWebFiltersOrder;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.oauth2.client.ReactiveOAuth2AuthorizedClientManager;
 import org.springframework.security.oauth2.client.ReactiveOAuth2AuthorizedClientProvider;
@@ -14,6 +15,7 @@ import org.springframework.security.web.server.SecurityWebFilterChain;
 
 import lombok.RequiredArgsConstructor;
 import miller79.converter.KeycloakJwtAuthenticationConverter;
+import miller79.security.filter.CustomSecurityAuthorizationFilter;
 
 /**
  * @see <a href=
@@ -63,8 +65,7 @@ public class SecurityConfiguration {
                         .authenticated())
                 .oauth2ResourceServer(
                         oauth2 -> oauth2.jwt(jwt -> jwt.jwtAuthenticationConverter(keycloakJwtAuthenticationConverter)))
-// TODO: Adding this breaks unit tests
-//                .addFilterBefore(new CustomSecurityAuthorizationFilter(), SecurityWebFiltersOrder.AUTHORIZATION)
+                .addFilterBefore(new CustomSecurityAuthorizationFilter(), SecurityWebFiltersOrder.AUTHORIZATION)
                 .build();
     }
 }
