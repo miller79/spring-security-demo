@@ -57,7 +57,9 @@ This application is a simple Spring Boot microservice using a reactive approach 
 
 ### Diagram
 
-![spring-security-diagram](resources/images/spring-security-diagram.png)
+![spring-security-diagram](resources/plantuml/spring-security-diagram/Spring%20Security%20Diagram.png)
+
+![spring-security-interaction-diagram](resources/plantuml/spring-security-interaction-diagram/Spring%20Security%20Interaction%20Diagram.png)
 
 ## Resources
 

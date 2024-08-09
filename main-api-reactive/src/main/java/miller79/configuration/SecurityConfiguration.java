@@ -58,7 +58,7 @@ public class SecurityConfiguration {
                         .pathMatchers("/web-client-oauth2-client-no-auth")
                         .permitAll()
                         .pathMatchers("/security-config-role-read")
-                        .hasAuthority("security360-permission:EL - Spring Security:read")
+                        .hasAuthority("permission:read")
                         .anyExchange()
                         .authenticated())
                 .oauth2ResourceServer(

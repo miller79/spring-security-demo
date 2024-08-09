@@ -1,0 +1,50 @@
+@startuml Spring Security Interaction Diagram
+participant "Client" as client
+participant "Main API" as mainApi
+participant "Microservice" as microservice
+
+group Token Passthrough with Token
+    client -> mainApi: Calls /rest-client-token-passthrough or /rest-template-token-passthrough\nor /web-client-token-passthrough with client JWT token
+    mainApi -> mainApi: Validates client JWT token
+    mainApi -> microservice: Calls / with client JWT token
+    microservice -> microservice: Validates client JWT token
+    microservice -> mainApi: Returns success response
+    mainApi -> client: Returns success response
+end
+
+group Token Passthrough with No Auth Token
+    client -> mainApi: Calls /rest-client-token-passthrough-no-auth or\n/web-client-token-passthrough-no-auth
+    mainApi -> microservice: Calls /
+    microservice -> microservice: Validates client JWT token
+    microservice -> mainApi: Returns unauthorized response
+    mainApi -> client: Returns unauthorized response
+end
+
+group OAuth 2 Client with No Auth Token
+    client -> mainApi: Calls /rest-client-oauth2-client-no-auth or\n/web-client-oauth2-client-no-auth
+    mainApi -> mainApi: Creates Internal JWT Token using Client Credentials flow
+    mainApi -> microservice: Calls / with Internal JWT Token
+    microservice -> microservice: Validates Internal JWT token
+    microservice -> mainApi: Returns success response
+    mainApi -> client: Returns success response
+end
+
+group Method Security with Token
+    client -> mainApi: Calls /preauth-read with client JWT token
+    mainApi -> mainApi: Validates client JWT token and that\ntoken contains authority permission:read
+    mainApi -> client: Returns success response
+end
+
+group Security Config with Token
+    client -> mainApi: Calls /preauth-read with client JWT token
+    mainApi -> mainApi: Validates client JWT token and that\ntoken contains authority permission:read
+    mainApi -> client: Returns success response
+end
+
+group Masking
+    client -> mainApi: Calls /fetch-semi-security-object with client JWT token
+    mainApi -> mainApi: Validates client JWT token and that\ntoken contains authority name:miller79
+    mainApi -> client: Returns masked result if authority is not\nname:miller79 otherwise return full response
+end
+
+@enduml

@@ -40,12 +40,12 @@ public class MainController {
     @GetMapping("/preauth-read")
     @PreAuthorize("hasAuthority('permission:read')")
     public Mono<String> helloWebClientRoleRead() {
-        return mainService.microserviceCallWithTokenPassthrough();
+        return Mono.just(HELLO_WORLD);
     }
 
     @GetMapping("/security-config-role-read")
-    public String helloRestClientSecurityConfigRoleRead() {
-        return HELLO_WORLD;
+    public Mono<String> helloRestClientSecurityConfigRoleRead() {
+        return Mono.just(HELLO_WORLD);
     }
 
 // TODO: Can't get this working

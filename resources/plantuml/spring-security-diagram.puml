@@ -1,4 +1,4 @@
-@startuml C4_Elements
+@startuml Spring Security Diagram
 !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
 
 Person(client, "Client")
