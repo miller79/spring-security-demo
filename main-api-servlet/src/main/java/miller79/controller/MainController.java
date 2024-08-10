@@ -43,12 +43,12 @@ public class MainController {
 
     @GetMapping("/preauth-read")
     @PreAuthorize("hasAuthority('permission:read')")
-    public String helloRestClientPreauthRoleRead() {
+    public String helloPreAuthRoleRead() {
         return HELLO_WORLD;
     }
 
     @GetMapping("/security-config-role-read")
-    public String helloRestClientSecurityConfigRoleRead() {
+    public String helloSecurityConfigRoleRead() {
         return HELLO_WORLD;
     }
 

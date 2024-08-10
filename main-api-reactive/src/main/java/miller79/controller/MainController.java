@@ -39,12 +39,12 @@ public class MainController {
 
     @GetMapping("/preauth-read")
     @PreAuthorize("hasAuthority('permission:read')")
-    public Mono<String> helloWebClientRoleRead() {
+    public Mono<String> helloPreAuthRoleRead() {
         return Mono.just(HELLO_WORLD);
     }
 
     @GetMapping("/security-config-role-read")
-    public Mono<String> helloRestClientSecurityConfigRoleRead() {
+    public Mono<String> helloSecurityConfigRoleRead() {
         return Mono.just(HELLO_WORLD);
     }
 
