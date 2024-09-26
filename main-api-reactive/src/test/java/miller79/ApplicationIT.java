@@ -1,4 +1,4 @@
-package miller79.controller;
+package miller79;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -38,7 +38,7 @@ import okhttp3.mockwebserver.RecordedRequest;
  */
 @SpringBootTest
 @AutoConfigureWebTestClient
-class MainControllerTest {
+class ApplicationIT {
     public static MockWebServer mockBackEnd;
 
     @Autowired

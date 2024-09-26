@@ -1,4 +1,4 @@
-package miller79.controller;
+package miller79;
 
 import static org.mockito.Mockito.doReturn;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.header;
@@ -47,7 +47,7 @@ import miller79.security.WithMockCustomUserSecurityContextFactory;
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("integration-test")
-class MainControllerTest {
+class ApplicationIT {
     @Autowired
     private MockServerRestClientCustomizer customizer;
 
