@@ -1,4 +1,4 @@
-package miller79.controller;
+package miller79;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ import org.springframework.test.web.reactive.server.WebTestClient;
  */
 @SpringBootTest
 @AutoConfigureWebTestClient
-class MainControllerTest {
+class ApplicationIT {
     @Autowired
     private WebTestClient webClient;
 
