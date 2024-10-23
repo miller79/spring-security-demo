@@ -32,7 +32,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.client.RestTemplate;
 
-import miller79.interceptor.OAuth2ClientHttpRequestInterceptor;
+import miller79.core.OAuth2ClientHttpRequestInterceptor;
 import miller79.security.WithMockCustomUser;
 import miller79.security.WithMockCustomUserSecurityContextFactory;
 

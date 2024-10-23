@@ -4,9 +4,10 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
+import java.net.InetAddress;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
@@ -20,6 +21,7 @@ import org.springframework.security.oauth2.client.registration.ReactiveClientReg
 import org.springframework.security.oauth2.client.web.server.ServerOAuth2AuthorizedClientRepository;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
+import org.springframework.test.util.TestSocketUtils;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
 import miller79.security.WithMockCustomUser;
@@ -39,7 +41,9 @@ import okhttp3.mockwebserver.RecordedRequest;
 @SpringBootTest
 @AutoConfigureWebTestClient
 class ApplicationIT {
-    public static MockWebServer mockBackEnd;
+    private static final int MOCK_BACK_END_PORT = TestSocketUtils.findAvailableTcpPort();
+
+    private MockWebServer mockBackEnd;
 
     @Autowired
     private WebTestClient webClient;
@@ -53,14 +57,14 @@ class ApplicationIT {
     @MockBean
     private ServerOAuth2AuthorizedClientRepository authorizedClientRepository;
 
-    @BeforeAll
-    static void setUp() throws IOException {
+    @BeforeEach
+    void setUp() throws IOException {
         mockBackEnd = new MockWebServer();
-        mockBackEnd.start();
+        mockBackEnd.start(InetAddress.getByName("localhost"), MOCK_BACK_END_PORT);
     }
 
-    @AfterAll
-    static void tearDown() throws IOException {
+    @AfterEach
+    void tearDown() throws IOException {
         mockBackEnd.shutdown();
     }
 
@@ -68,10 +72,10 @@ class ApplicationIT {
     static void properties(DynamicPropertyRegistry dynamicPropertyRegistry) throws IOException {
         dynamicPropertyRegistry
                 .add("miller79.client.microservice-token-passthrough-base-url",
-                        () -> "http://localhost:" + mockBackEnd.getPort());
+                        () -> "http://localhost:" + MOCK_BACK_END_PORT);
         dynamicPropertyRegistry
                 .add("miller79.client.microservice-o-auth2-client-base-url",
-                        () -> "http://localhost:" + mockBackEnd.getPort());
+                        () -> "http://localhost:" + MOCK_BACK_END_PORT);
     }
 
     @Test
