@@ -6,7 +6,6 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 import org.springframework.security.access.AccessDeniedException;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
@@ -31,21 +30,16 @@ public class CustomSecurityAuthorizationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
         try {
-            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-            JwtAuthenticationToken newAuthentication = Optional
-                    .ofNullable(authentication)
+            Optional
+                    .ofNullable(SecurityContextHolder.getContext().getAuthentication())
                     .filter(JwtAuthenticationToken.class::isInstance)
                     .map(JwtAuthenticationToken.class::cast)
-                    .map(jwt -> new JwtAuthenticationToken(jwt.getToken(), Stream
-                            .concat(jwt.getAuthorities().stream(),
-                                    List.of(new SimpleGrantedAuthority("name:" + authentication.getName())).stream())
-                            .toList()))
-                    .orElse(null);
-
-            if (authentication != null && newAuthentication != null) {
-                SecurityContextHolder.getContext().setAuthentication(newAuthentication);
-            }
+                    .map(jwt -> new JwtAuthenticationToken(jwt.getToken(),
+                            Stream
+                                    .concat(jwt.getAuthorities().stream(),
+                                            List.of(new SimpleGrantedAuthority("name:" + jwt.getName())).stream())
+                                    .toList()))
+                    .ifPresent(SecurityContextHolder.getContext()::setAuthentication);
 
             filterChain.doFilter(request, response);
         } catch (RuntimeException e) {

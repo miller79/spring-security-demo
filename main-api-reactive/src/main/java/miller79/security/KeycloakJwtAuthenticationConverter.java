@@ -1,6 +1,5 @@
 package miller79.security;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -45,8 +44,8 @@ public class KeycloakJwtAuthenticationConverter implements Converter<Jwt, Mono<A
                 .map(claimsMap -> claimsMap.get(resourceId))
                 .map(resourceMap -> (Map<String, List<String>>) resourceMap)
                 .map(c -> c.get(ROLES))
-                .orElse(new ArrayList<>())
                 .stream()
+                .flatMap(List::stream)
                 .map(role -> "permission:" + role)
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
