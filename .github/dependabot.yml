@@ -6,4 +6,4 @@ updates:
       - "/main-api-servlet"
       - "/microservice"
     schedule:
-      interval: "weekly"
+      interval: "monthly"
