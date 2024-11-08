@@ -1,0 +1,9 @@
+version: 2
+updates:
+  - package-ecosystem: "maven"
+    directories:
+      - "/main-api-reactive"
+      - "/main-api-servlet"
+      - "/microservice"
+    schedule:
+      interval: "weekly"
