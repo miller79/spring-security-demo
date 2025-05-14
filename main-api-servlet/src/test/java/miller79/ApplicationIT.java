@@ -10,29 +10,35 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.time.Instant;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.boot.test.web.client.MockServerRestClientCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClientManager;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
+import org.springframework.security.oauth2.client.registration.ClientRegistration;
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
+import org.springframework.security.oauth2.core.AuthorizationGrantType;
+import org.springframework.security.oauth2.core.OAuth2AccessToken;
+import org.springframework.security.oauth2.core.OAuth2AccessToken.TokenType;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.client.MockRestServiceServer;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.client.RestTemplate;
 
-import miller79.core.OAuth2ClientHttpRequestInterceptor;
 import miller79.security.WithMockCustomUser;
 import miller79.security.WithMockCustomUserSecurityContextFactory;
 
@@ -63,17 +69,14 @@ class ApplicationIT {
     @Autowired
     private RestClient.Builder microserviceOAuth2ClientRestClientBuilder;
 
-    @MockBean
+    @MockitoBean
     private OAuth2AuthorizedClientManager authorizedClientManager;
 
-    @MockBean
+    @MockitoBean
     private ClientRegistrationRepository clientRegistrationRepository;
 
-    @MockBean
+    @MockitoBean
     private OAuth2AuthorizedClientService authorizedClientService;
-
-    @SpyBean
-    private OAuth2ClientHttpRequestInterceptor oauth2ClientHttpRequestInterceptor;
 
     @TestConfiguration
     public static class MainControllerTestConfiguration {
@@ -91,7 +94,13 @@ class ApplicationIT {
 
     @BeforeEach
     void init() {
-        doReturn("myInternalToken").when(oauth2ClientHttpRequestInterceptor).getToken();
+        doReturn(new OAuth2AuthorizedClient(
+                ClientRegistration
+                        .withRegistrationId("test")
+                        .authorizationGrantType(AuthorizationGrantType.JWT_BEARER)
+                        .build(),
+                "me", new OAuth2AccessToken(TokenType.BEARER, "myInternalToken", Instant.now(),
+                        Instant.now().plusSeconds(300000L)))).when(authorizedClientManager).authorize(Mockito.any());
     }
 
     @AfterEach

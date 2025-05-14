@@ -1,8 +1,6 @@
 package miller79.core;
 
 import org.springframework.boot.autoconfigure.web.client.RestClientBuilderConfigurer;
-import org.springframework.boot.web.client.ClientHttpRequestFactories;
-import org.springframework.boot.web.client.ClientHttpRequestFactorySettings;
 import org.springframework.web.client.RestClient;
 
 import lombok.experimental.UtilityClass;
@@ -21,9 +19,6 @@ public class RestClientUtil {
      * @return
      */
     public RestClient.Builder createDefaultRestClientBuilder(RestClientBuilderConfigurer restClientBuilderConfigurer) {
-        RestClient.Builder builder = RestClient
-                .builder()
-                .requestFactory(ClientHttpRequestFactories.get(ClientHttpRequestFactorySettings.DEFAULTS));
-        return restClientBuilderConfigurer.configure(builder);
+        return restClientBuilderConfigurer.configure(RestClient.builder());
     }
 }

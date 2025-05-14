@@ -3,11 +3,12 @@ package miller79.main;
 import org.springframework.boot.autoconfigure.web.client.RestClientBuilderConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClientManager;
+import org.springframework.security.oauth2.client.web.client.OAuth2ClientHttpRequestInterceptor;
 import org.springframework.web.client.RestClient;
 
 import lombok.RequiredArgsConstructor;
 import miller79.core.Miller79ClientServerConfigurationProperties;
-import miller79.core.OAuth2ClientHttpRequestInterceptor;
 import miller79.core.RestClientUtil;
 import miller79.core.TokenPassthroughInterceptor;
 
@@ -41,7 +42,11 @@ class RestClientConfiguration {
 
     @Bean
     RestClient.Builder microserviceOAuth2ClientRestClientBuilder(
-            OAuth2ClientHttpRequestInterceptor oauth2ClientHttpRequestInterceptor) {
+            OAuth2AuthorizedClientManager authorizedClientManager) {
+        OAuth2ClientHttpRequestInterceptor oauth2ClientHttpRequestInterceptor = new OAuth2ClientHttpRequestInterceptor(
+                authorizedClientManager);
+        oauth2ClientHttpRequestInterceptor.setClientRegistrationIdResolver(request -> "keycloak");
+
         return RestClientUtil
                 .createDefaultRestClientBuilder(restClientBuilderConfigurer)
                 .baseUrl(miller79ClientServerConfigurationProperties.getMicroserviceOAuth2ClientBaseUrl())

@@ -15,7 +15,7 @@ class ModulithTest {
     @Test
     void verifyModules() {
         for (var module : modules) {
-            log.info("module: {}:{}", module.getName(), module.getBasePackage());
+            log.info("module: {}:{}", module.getIdentifier(), module.getBasePackage());
         }
 
         modules.verify();

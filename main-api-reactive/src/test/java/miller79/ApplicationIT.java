@@ -12,7 +12,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
@@ -21,6 +20,7 @@ import org.springframework.security.oauth2.client.registration.ReactiveClientReg
 import org.springframework.security.oauth2.client.web.server.ServerOAuth2AuthorizedClientRepository;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.util.TestSocketUtils;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
@@ -48,13 +48,13 @@ class ApplicationIT {
     @Autowired
     private WebTestClient webClient;
 
-    @MockBean
+    @MockitoBean
     private ReactiveOAuth2AuthorizedClientManager authorizedClientManager;
 
-    @MockBean
+    @MockitoBean
     private ReactiveClientRegistrationRepository clientRegistrationRepository;
 
-    @MockBean
+    @MockitoBean
     private ServerOAuth2AuthorizedClientRepository authorizedClientRepository;
 
     @BeforeEach
