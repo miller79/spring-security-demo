@@ -16,6 +16,24 @@ import org.springframework.security.web.server.SecurityWebFilterChain;
 import lombok.RequiredArgsConstructor;
 
 /**
+ * Central security configuration for the reactive main API.
+ *
+ * <p>This is the reactive counterpart to the servlet module's {@code SecurityConfiguration}.
+ * It uses WebFlux's {@link org.springframework.security.web.server.SecurityWebFilterChain}
+ * instead of the servlet-based {@code SecurityFilterChain}. The security rules are equivalent:
+ * <ul>
+ *   <li>CSRF disabled (stateless token-based API)</li>
+ *   <li>{@code /actuator/**} open to all</li>
+ *   <li>{@code /web-client-token-passthrough-no-auth} and {@code /web-client-oauth2-client-no-auth}
+ *       are public</li>
+ *   <li>{@code /security-config-role-read} requires {@code permission:read}</li>
+ *   <li>All other endpoints require authentication</li>
+ * </ul>
+ *
+ * <p>The reactive OAuth2 client manager uses
+ * {@code ReactiveOAuth2AuthorizedClientProviderBuilder} for machine-to-machine token
+ * acquisition. Method-level security is enabled via {@code @EnableReactiveMethodSecurity}.
+ *
  * @see <a href=
  *      "https://docs.spring.io/spring-framework/reference/core/beans/java/configuration-annotation.html">Using
  *      the @Configuration annotation</a>
@@ -28,9 +46,16 @@ import lombok.RequiredArgsConstructor;
 @Configuration
 @RequiredArgsConstructor
 @EnableReactiveMethodSecurity
-public class SecurityConfiguration {
+class SecurityConfiguration {
     private final KeycloakJwtAuthenticationConverter keycloakJwtAuthenticationConverter;
 
+    /**
+     * Creates a reactive OAuth2 client manager for obtaining machine-to-machine tokens.
+     *
+     * @param clientRegistrationRepository holds the OAuth2 client registrations (e.g., Keycloak client ID/secret)
+     * @param authorizedClientRepository stores previously obtained OAuth2 tokens for reuse
+     * @return a reactive OAuth2 client manager configured for the client credentials grant type
+     */
     @Bean
     ReactiveOAuth2AuthorizedClientManager authorizedClientManager(
             ReactiveClientRegistrationRepository clientRegistrationRepository,
@@ -47,9 +72,17 @@ public class SecurityConfiguration {
         return authorizedClientManager;
     }
 
+    /**
+     * Builds the reactive security filter chain that protects all API endpoints.
+     *
+     * @param http the reactive security builder provided by Spring, used to define URL access rules and JWT validation
+     * @return a fully configured security filter chain for the reactive stack
+     * @throws Exception if the security configuration cannot be built
+     */
     @Bean
     SecurityWebFilterChain filterChain(ServerHttpSecurity http) throws Exception {
         return http
+                .csrf(ServerHttpSecurity.CsrfSpec::disable)
                 .authorizeExchange(exchanges -> exchanges
                         .pathMatchers("/actuator/**")
                         .permitAll()

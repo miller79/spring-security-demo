@@ -1,6 +1,8 @@
 server:
   port: 8081
 spring:
+  application:
+    name: '@project.artifactId@'
   security:
     oauth2:
       resourceserver:
