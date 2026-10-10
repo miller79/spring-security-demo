@@ -58,8 +58,6 @@ This application is an API created using Spring Boot using a reactive approach. 
 > **Note:** `@AuthorizeReturnObject` and `@HandleAuthorizationDenied` are not yet supported in Spring Security's reactive stack.
 > Manual masking via `ReactiveSecurityContextHolder` is used as a workaround. See [spring-projects/spring-security#7594](https://github.com/spring-projects/spring-security/issues/7594) for tracking.
 
-> **TODO:** OkHttp 5.5.0 is available as a further fast-follow upgrade (currently on 5.4.0). It introduces DNS/ECH-related changes that need to be verified against this module's `MockWebServer` usage in tests before upgrading. Flagged by reviewer as non-blocking.
-
 ### microservice
 
 This application is a simple Spring Boot microservice using a reactive approach that contains one endpoint that is secured using OAuth 2.0. It demonstrates how to set it up and how to perform an integration test.
