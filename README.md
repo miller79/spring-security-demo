@@ -72,7 +72,7 @@ This application is a simple Spring Boot microservice using a reactive approach 
 
 | Variable | Used by | Description |
 | --- | --- | --- |
-| `OAUTH2_CLIENT_SECRET` | `main-api-servlet`, `main-api-reactive` | **Required.** Client secret for the `keycloak` client-credentials registration. There is no default. A startup check (`ClientSecretValidator`) fails the app if it is unset, blank or an unresolved `${...}` placeholder (Spring Boot would otherwise pass the literal placeholder text as the secret). Tests supply a dummy value. |
+| `OAUTH2_CLIENT_SECRET` | `main-api-servlet`, `main-api-reactive` | **Required.** Client secret for the `keycloak` client-credentials registration. There is no default. A startup check (`ClientSecretEnvironmentPostProcessor`) fails the app if it is unset, blank or an unresolved `${...}` placeholder (Spring Boot would otherwise pass the literal placeholder text as the secret). Tests supply a dummy value. |
 
 ## Java version
 

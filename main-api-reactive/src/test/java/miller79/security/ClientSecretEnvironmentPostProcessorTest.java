@@ -15,8 +15,16 @@ import org.springframework.mock.env.MockPropertySource;
 class ClientSecretEnvironmentPostProcessorTest {
     private final ClientSecretEnvironmentPostProcessor processor = new ClientSecretEnvironmentPostProcessor();
 
-    private void process(String value) {
+    /** Environment without system env/properties, so an exported OAUTH2_CLIENT_SECRET cannot leak into the test. */
+    private static StandardEnvironment isolatedEnvironment() {
         var env = new StandardEnvironment();
+        env.getPropertySources().remove(StandardEnvironment.SYSTEM_ENVIRONMENT_PROPERTY_SOURCE_NAME);
+        env.getPropertySources().remove(StandardEnvironment.SYSTEM_PROPERTIES_PROPERTY_SOURCE_NAME);
+        return env;
+    }
+
+    private void process(String value) {
+        var env = isolatedEnvironment();
         var source = new MockPropertySource();
         if (value != null) {
             source.setProperty(ClientSecretEnvironmentPostProcessor.PROPERTY, value);
@@ -44,7 +52,7 @@ class ClientSecretEnvironmentPostProcessorTest {
 
     @Test
     void shouldFailStartup_whenApplicationYamlPlaceholderIsUnset() throws Exception {
-        var env = new StandardEnvironment();
+        var env = isolatedEnvironment();
         new YamlPropertySourceLoader()
                 .load("application", new ClassPathResource("application.yaml"))
                 .forEach(env.getPropertySources()::addLast);
