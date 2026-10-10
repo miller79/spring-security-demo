@@ -1,5 +1,7 @@
 package miller79.security;
 
+import org.springframework.boot.health.actuate.endpoint.HealthEndpoint;
+import org.springframework.boot.security.autoconfigure.actuate.web.servlet.EndpointRequest;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,7 +27,7 @@ import lombok.RequiredArgsConstructor;
  * configuration builds that chain with the following rules:
  * <ul>
  *   <li>CSRF protection is disabled (safe for stateless token-based APIs that don't use cookies)</li>
- *   <li>{@code /actuator/**} endpoints (health checks, metrics) are open to everyone</li>
+ *   <li>Only the {@code /actuator/health} endpoint is open to everyone; other actuator endpoints require authentication</li>
  *   <li>{@code /rest-client-token-passthrough-no-auth} and {@code /rest-client-oauth2-client-no-auth}
  *       are public (they handle auth differently — by forwarding tokens or using client credentials)</li>
  *   <li>{@code /security-config-role-read} requires the {@code permission:read} authority</li>
@@ -104,9 +106,10 @@ class SecurityConfiguration {
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
+                // Stateless bearer-token API: no session or cookie auth, so CSRF does not apply
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/actuator/**")
+                        .requestMatchers(EndpointRequest.to(HealthEndpoint.class))
                         .permitAll()
                         .requestMatchers("/rest-client-token-passthrough-no-auth")
                         .permitAll()

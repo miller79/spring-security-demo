@@ -68,7 +68,7 @@ import mockwebserver3.RecordedRequest;
  *      "https://docs.spring.io/spring-security/reference/reactive/test/method.html">Testing
  *      Method Security</a>
  */
-@SpringBootTest
+@SpringBootTest(properties = "OAUTH2_CLIENT_SECRET=test-only-dummy")
 @AutoConfigureWebTestClient
 @DisplayName("Main API Reactive Integration Tests")
 class ApplicationIT {
@@ -287,5 +287,18 @@ class ApplicationIT {
                 .jsonPath("$.name").isEqualTo("Secret Person")
                 .jsonPath("$.ssn").isEqualTo("123-45-6789")
                 .jsonPath("$.phoneNumber").isEqualTo("123-456-7890");
+    }
+
+    /** Verifies that the health endpoint is open to anonymous callers. */
+    @Test
+    void shouldAllowAnonymous_whenActuatorHealth() {
+        webClient.get().uri("/actuator/health").exchange().expectStatus().isOk();
+    }
+
+    /** Verifies that non-health actuator endpoints are not open to anonymous callers. */
+    @Test
+    void shouldRejectAnonymous_whenOtherActuatorEndpoints() {
+        webClient.get().uri("/actuator/env").exchange().expectStatus().isUnauthorized();
+        webClient.get().uri("/actuator/info").exchange().expectStatus().isUnauthorized();
     }
 }

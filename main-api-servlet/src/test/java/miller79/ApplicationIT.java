@@ -72,7 +72,7 @@ import miller79.security.WithMockCustomUserSecurityContextFactory;
  *      "https://docs.spring.io/spring-security/reference/servlet/test/method.html#test-method-withuserdetails">Testing
  *      Method Security</a>
  */
-@SpringBootTest
+@SpringBootTest(properties = "OAUTH2_CLIENT_SECRET=test-only-dummy")
 @AutoConfigureMockMvc
 @ActiveProfiles("integration-test")
 @DisplayName("Main API Servlet Integration Tests")
@@ -263,5 +263,18 @@ class ApplicationIT {
                         "phoneNumber": "123-456-7890"
                     }
                 """));
+    }
+
+    /** Verifies that the health endpoint is open to anonymous callers. */
+    @Test
+    void shouldAllowAnonymous_whenActuatorHealth() throws Exception {
+        mvc.perform(get("/actuator/health")).andExpect(status().isOk());
+    }
+
+    /** Verifies that non-health actuator endpoints are not open to anonymous callers. */
+    @Test
+    void shouldRejectAnonymous_whenOtherActuatorEndpoints() throws Exception {
+        mvc.perform(get("/actuator/env")).andExpect(status().isUnauthorized());
+        mvc.perform(get("/actuator/info")).andExpect(status().isUnauthorized());
     }
 }

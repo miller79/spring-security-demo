@@ -58,8 +58,6 @@ This application is an API created using Spring Boot using a reactive approach. 
 > **Note:** `@AuthorizeReturnObject` and `@HandleAuthorizationDenied` are not yet supported in Spring Security's reactive stack.
 > Manual masking via `ReactiveSecurityContextHolder` is used as a workaround. See [spring-projects/spring-security#7594](https://github.com/spring-projects/spring-security/issues/7594) for tracking.
 
-> **TODO:** OkHttp 5.5.0 is available as a further fast-follow upgrade (currently on 5.4.0). It introduces DNS/ECH-related changes that need to be verified against this module's `MockWebServer` usage in tests before upgrading. Flagged by reviewer as non-blocking.
-
 ### microservice
 
 This application is a simple Spring Boot microservice using a reactive approach that contains one endpoint that is secured using OAuth 2.0. It demonstrates how to set it up and how to perform an integration test.
@@ -69,6 +67,16 @@ This application is a simple Spring Boot microservice using a reactive approach 
 ![spring-security-diagram](resources/plantuml/spring-security-diagram/Spring%20Security%20Diagram.png)
 
 ![spring-security-interaction-diagram](resources/plantuml/spring-security-interaction-diagram/Spring%20Security%20Interaction%20Diagram.png)
+
+## Configuration
+
+| Variable | Used by | Description |
+| --- | --- | --- |
+| `OAUTH2_CLIENT_SECRET` | `main-api-servlet`, `main-api-reactive` | **Required.** Client secret for the `keycloak` client-credentials registration. There is no default. A startup check (`ClientSecretEnvironmentPostProcessor`) fails the app if it is unset, blank or an unresolved `${...}` placeholder (Spring Boot would otherwise pass the literal placeholder text as the secret). Tests supply a dummy value. |
+
+## Java version
+
+The build targets Java 21 (`java.version` in each `pom.xml`). Moving the baseline to JDK 25 (LTS) is to be decided by the project owner and requires deploy images/CI on JDK 25.
 
 ## Resources
 

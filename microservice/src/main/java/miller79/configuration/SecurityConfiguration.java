@@ -1,5 +1,7 @@
 package miller79.configuration;
 
+import org.springframework.boot.health.actuate.endpoint.HealthEndpoint;
+import org.springframework.boot.security.autoconfigure.actuate.web.reactive.EndpointRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -13,7 +15,7 @@ import org.springframework.security.web.server.SecurityWebFilterChain;
  * <p>By default, Spring Security would block ALL incoming requests. This class customizes that
  * behavior so that:
  * <ul>
- *   <li>Health/monitoring endpoints ({@code /actuator/**}) are open to everyone (no login needed)</li>
+ *   <li>The health endpoint ({@code /actuator/health}) is open to everyone (no login needed)</li>
  *   <li>All other endpoints require the caller to present a valid JWT
  *       (JSON Web Token — a compact, digitally-signed token that proves who the caller is)</li>
  * </ul>
@@ -45,7 +47,7 @@ class SecurityConfiguration {
         http
                 .csrf(ServerHttpSecurity.CsrfSpec::disable)
                 .authorizeExchange(
-                        exchanges -> exchanges.pathMatchers("/actuator/**").permitAll().anyExchange().authenticated())
+                        exchanges -> exchanges.matchers(EndpointRequest.to(HealthEndpoint.class)).permitAll().anyExchange().authenticated())
                 .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()));
         return http.build();
     }
