@@ -1,3 +1,10 @@
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          keycloak:
+            client-secret: test-only-dummy
 miller79:
   client:
     microservice-o-auth2-client-base-url: http://localhost

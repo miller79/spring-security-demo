@@ -68,6 +68,16 @@ This application is a simple Spring Boot microservice using a reactive approach 
 
 ![spring-security-interaction-diagram](resources/plantuml/spring-security-interaction-diagram/Spring%20Security%20Interaction%20Diagram.png)
 
+## Configuration
+
+| Variable | Used by | Description |
+| --- | --- | --- |
+| `OAUTH2_CLIENT_SECRET` | `main-api-servlet`, `main-api-reactive` | **Required.** Client secret for the `keycloak` client-credentials registration. There is no default; the app fails to start without it. Tests supply a dummy value. |
+
+## Java version
+
+The build targets Java 21 (`java.version` in each `pom.xml`). Moving the baseline to JDK 25 (LTS) is a decision for Anthony Lofton and requires deploy images/CI on JDK 25.
+
 ## Resources
 
 - [Spring Boot 4.0 Reference Documentation](https://docs.spring.io/spring-boot/4.0/index.html)

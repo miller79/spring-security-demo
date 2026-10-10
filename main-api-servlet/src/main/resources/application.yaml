@@ -13,7 +13,7 @@ spring:
           keycloak:
             authorization-grant-type: client_credentials
             client-id: my-client-id
-            client-secret: ${OAUTH2_CLIENT_SECRET:my-secret}
+            client-secret: ${OAUTH2_CLIENT_SECRET}
       resourceserver:
         jwt:
           issuer-uri: https://keycloak.issuer-uri

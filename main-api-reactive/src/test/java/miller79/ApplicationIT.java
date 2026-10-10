@@ -68,7 +68,7 @@ import mockwebserver3.RecordedRequest;
  *      "https://docs.spring.io/spring-security/reference/reactive/test/method.html">Testing
  *      Method Security</a>
  */
-@SpringBootTest
+@SpringBootTest(properties = "OAUTH2_CLIENT_SECRET=test-only-dummy")
 @AutoConfigureWebTestClient
 @DisplayName("Main API Reactive Integration Tests")
 class ApplicationIT {
