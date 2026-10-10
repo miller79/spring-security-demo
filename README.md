@@ -72,11 +72,11 @@ This application is a simple Spring Boot microservice using a reactive approach 
 
 | Variable | Used by | Description |
 | --- | --- | --- |
-| `OAUTH2_CLIENT_SECRET` | `main-api-servlet`, `main-api-reactive` | **Required.** Client secret for the `keycloak` client-credentials registration. There is no default; the app fails to start without it. Tests supply a dummy value. |
+| `OAUTH2_CLIENT_SECRET` | `main-api-servlet`, `main-api-reactive` | **Required.** Client secret for the `keycloak` client-credentials registration. There is no default. A startup check (`ClientSecretValidator`) fails the app if it is unset, blank or an unresolved `${...}` placeholder (Spring Boot would otherwise pass the literal placeholder text as the secret). Tests supply a dummy value. |
 
 ## Java version
 
-The build targets Java 21 (`java.version` in each `pom.xml`). Moving the baseline to JDK 25 (LTS) is a decision for Anthony Lofton and requires deploy images/CI on JDK 25.
+The build targets Java 21 (`java.version` in each `pom.xml`). Moving the baseline to JDK 25 (LTS) is to be decided by the project owner and requires deploy images/CI on JDK 25.
 
 ## Resources
 
