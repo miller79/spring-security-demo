@@ -57,4 +57,16 @@ class ApplicationIT {
         webClient.get().uri("/").exchange().expectStatus().is4xxClientError();
     }
 
+    /** Verifies that the health endpoint is open to anonymous callers. */
+    @Test
+    void shouldAllowAnonymous_whenActuatorHealth() {
+        webClient.get().uri("/actuator/health").exchange().expectStatus().isOk();
+    }
+
+    /** Verifies that non-health actuator endpoints are not open to anonymous callers. */
+    @Test
+    void shouldRejectAnonymous_whenOtherActuatorEndpoints() {
+        webClient.get().uri("/actuator/env").exchange().expectStatus().isUnauthorized();
+        webClient.get().uri("/actuator/info").exchange().expectStatus().isUnauthorized();
+    }
 }
