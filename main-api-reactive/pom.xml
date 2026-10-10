@@ -14,9 +14,9 @@
     <version>LOCAL-SNAPSHOT</version>
 
     <properties>
-        <java.version>21</java.version>
+        <java.version>25</java.version>
         <spring-modulith.version>2.1.1</spring-modulith.version>
-        <okhttp.version>5.4.0</okhttp.version>
+        <okhttp.version>5.5.0</okhttp.version>
     </properties>
 
     <dependencies>
