@@ -1,0 +1,1 @@
+org.springframework.boot.EnvironmentPostProcessor=miller79.security.ClientSecretEnvironmentPostProcessor
